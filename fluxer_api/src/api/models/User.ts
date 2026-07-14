@@ -60,6 +60,7 @@ export class User {
 	readonly lastActiveAt: Date | null;
 	readonly lastActiveIp: string | null;
 	readonly tempBannedUntil: Date | null;
+	readonly tempBanPublicReason: string | null;
 	readonly pendingBulkMessageDeletionAt: Date | null;
 	readonly pendingBulkMessageDeletionChannelCount: number | null;
 	readonly pendingBulkMessageDeletionMessageCount: number | null;
@@ -123,6 +124,7 @@ export class User {
 		this.lastActiveAt = row.last_active_at ?? null;
 		this.lastActiveIp = row.last_active_ip ?? null;
 		this.tempBannedUntil = row.temp_banned_until ?? null;
+		this.tempBanPublicReason = row.temp_ban_public_reason ?? null;
 		this.pendingBulkMessageDeletionAt = row.pending_bulk_message_deletion_at ?? null;
 		this.pendingBulkMessageDeletionChannelCount = row.pending_bulk_message_deletion_channel_count ?? null;
 		this.pendingBulkMessageDeletionMessageCount = row.pending_bulk_message_deletion_message_count ?? null;
@@ -213,6 +215,7 @@ export class User {
 			last_active_at: this.lastActiveAt,
 			last_active_ip: this.lastActiveIp,
 			temp_banned_until: this.tempBannedUntil,
+			temp_ban_public_reason: this.tempBanPublicReason,
 			pending_bulk_message_deletion_at: this.pendingBulkMessageDeletionAt,
 			pending_bulk_message_deletion_channel_count: this.pendingBulkMessageDeletionChannelCount,
 			pending_bulk_message_deletion_message_count: this.pendingBulkMessageDeletionMessageCount,

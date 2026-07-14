@@ -42,6 +42,7 @@ export class AdminUserBanService {
 			userId,
 			{
 				temp_banned_until: tempBannedUntil,
+				temp_ban_public_reason: data.reason ?? null,
 				flags: user.flags | UserFlags.DISABLED,
 			},
 			user.toRow(),
@@ -94,6 +95,7 @@ export class AdminUserBanService {
 			userId,
 			{
 				temp_banned_until: null,
+				temp_ban_public_reason: null,
 				flags: user.flags & ~UserFlags.DISABLED,
 			},
 			user.toRow(),

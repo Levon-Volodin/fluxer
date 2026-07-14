@@ -267,6 +267,7 @@ export async function login(
 			currentUser.id,
 			{
 				flags: updatedFlags,
+				temp_ban_public_reason: null,
 			},
 			currentUser.toRow(),
 		);

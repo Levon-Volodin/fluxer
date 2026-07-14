@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: AGPL-3.0-or-later
 
 import {type UseFormReturn, useForm} from '@app/features/app/hooks/useForm';
+import {showLoginBanModal} from '@app/features/auth/components/modals/LoginBanModal';
 import {CaptchaCancelledError, CaptchaValidationError} from '@app/features/auth/hooks/useCaptcha';
 import * as RouterUtils from '@app/features/navigation/utils/RouterUtils';
 import {HttpError} from '@app/features/platform/types/EndpointError';
@@ -33,6 +34,8 @@ interface ValidationError {
 interface APIErrorResponse {
 	code: string;
 	message: string;
+	public_reason?: string | null;
+	banned_until?: string | null;
 	errors?: Array<ValidationError>;
 }
 
@@ -121,6 +124,15 @@ const extractErrors = (
 		);
 		setFieldErrors(fieldErrors);
 		form.setErrors(fieldErrors);
+		return;
+	}
+	if (
+		errorData?.code === APIErrorCodes.ACCOUNT_SUSPENDED_TEMPORARILY ||
+		errorData?.code === APIErrorCodes.ACCOUNT_SUSPENDED_PERMANENTLY
+	) {
+		showLoginBanModal({publicReason: errorData.public_reason, bannedUntil: errorData.banned_until});
+		setError(null);
+		setFieldErrors(null);
 		return;
 	}
 	const message = getAuthErrorMessage(error, i18n);

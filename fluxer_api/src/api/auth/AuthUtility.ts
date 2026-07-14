@@ -106,10 +106,15 @@ export async function handleBanStatus(ctx: ApiContext, user: User): Promise<User
 	const {users} = ctx.services;
 	const banStatus = checkAccountBanStatus(ctx, user);
 	if (banStatus.isPermanentlyBanned) {
-		throw new AccountPermanentlySuspendedError();
+		throw new AccountPermanentlySuspendedError({
+			public_reason: user.deletionPublicReason ?? null,
+		});
 	}
 	if (banStatus.isTempBanned) {
-		throw new AccountTemporarilySuspendedError();
+		throw new AccountTemporarilySuspendedError({
+			public_reason: user.tempBanPublicReason ?? null,
+			banned_until: user.tempBannedUntil?.toISOString() ?? null,
+		});
 	}
 	if (banStatus.tempBanExpired) {
 		return users.patchUpsert(
@@ -117,6 +122,7 @@ export async function handleBanStatus(ctx: ApiContext, user: User): Promise<User
 			{
 				flags: user.flags & ~UserFlags.DISABLED,
 				temp_banned_until: null,
+				temp_ban_public_reason: null,
 			},
 			user.toRow(),
 		);

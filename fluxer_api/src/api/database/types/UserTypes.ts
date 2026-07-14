@@ -62,6 +62,7 @@ export interface UserRow {
 	last_active_at: Nullish<Date>;
 	last_active_ip: Nullish<string>;
 	temp_banned_until: Nullish<Date>;
+	temp_ban_public_reason: Nullish<string>;
 	pending_bulk_message_deletion_at: Nullish<Date>;
 	pending_bulk_message_deletion_channel_count: Nullish<number>;
 	pending_bulk_message_deletion_message_count: Nullish<number>;
@@ -125,6 +126,7 @@ export const USER_COLUMNS = [
 	'last_active_at',
 	'last_active_ip',
 	'temp_banned_until',
+	'temp_ban_public_reason',
 	'pending_bulk_message_deletion_at',
 	'pending_bulk_message_deletion_channel_count',
 	'pending_bulk_message_deletion_message_count',
@@ -187,6 +189,7 @@ export const EMPTY_USER_ROW: UserRow = {
 	last_active_at: null,
 	last_active_ip: null,
 	temp_banned_until: null,
+	temp_ban_public_reason: null,
 	pending_bulk_message_deletion_at: null,
 	pending_bulk_message_deletion_channel_count: null,
 	pending_bulk_message_deletion_message_count: null,

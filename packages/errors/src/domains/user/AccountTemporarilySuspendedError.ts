@@ -4,7 +4,7 @@ import {APIErrorCodes} from '@fluxer/constants/src/ApiErrorCodes';
 import {ForbiddenError} from '@fluxer/errors/src/domains/core/ForbiddenError';
 
 export class AccountTemporarilySuspendedError extends ForbiddenError {
-	constructor() {
-		super({code: APIErrorCodes.ACCOUNT_SUSPENDED_TEMPORARILY});
+	constructor(data?: {public_reason?: string | null; banned_until?: string | null}) {
+		super({code: APIErrorCodes.ACCOUNT_SUSPENDED_TEMPORARILY, data});
 	}
 }
